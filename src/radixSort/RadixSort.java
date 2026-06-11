@@ -1,5 +1,7 @@
 package radixSort;
 
+import java.util.Arrays;
+
 public class RadixSort {
 
 	// Find the largest value in an array
@@ -75,18 +77,27 @@ public class RadixSort {
 	// Method for radix sort
 	public static void radixSort(Integer[] array) {
 		// Ensure array to sort is not empty
-		if (array.length == 0 || array == null) {
+		if (array == null || array.length == 0) {
 			return;
 		}
 		
 		// Call highestNum() to determine number of passes through numbers
 		int highestNum = highestNum(array);
 		
+		// Variable to hold pass through count
+		int pass = 1;
+		
 		// Loop through using highest number to determine number position sorting by
 		for (int position = 1; highestNum / position > 0; position *= 10) {
 			
 			// Call sortByCurrentPosition() to sort by current position
 			sortByCurrentPosition(array, position);
+			
+			// Print statement to confirm array after each iteration
+			System.out.println("Pass " + pass + ": " + Arrays.toString(array));
+			
+			// Increment the pass
+			pass++;
 		}
 	}
 	
