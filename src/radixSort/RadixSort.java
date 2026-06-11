@@ -24,22 +24,23 @@ public class RadixSort {
 	private static void sortByCurrentPosition(Integer[] array, int position) {
 		
 		// Create a temp array to hold sorted numbers for each pass
-		int[] tempSorted = new int[array.length];
+		Integer[] tempSorted = new Integer[array.length];
 		
 		// Create an array with 10 elements, one for each possible digit 0-9
 		int[] positionCounts = new int[10];
 		
-		// Loop through numbers in the array
+		// Loop through numbers in the array to determine number occurrences
 		for (int number : array) {
 			
-			// Locate the digit sorting by
+			// Locate the position digit such as ones, tens, hundreds, etc.
 			int digit = (number/position) % 10;
 			
-			// Increment the count for this digit
+			// Increment the count for this digit keeping a tally of each digit
 			positionCounts[digit]++;
 		}
 		
-		// Loop through the positionCounts starting with first element
+		// Loop through the positionCounts starting with first element so there 
+		// is something to add to - otherwise ArrayIndexOutOfBounds error
 		for (int i = 1; i < positionCounts.length; i++) {
 			
 			// Convert counts into cumulative positions showing where
@@ -74,7 +75,7 @@ public class RadixSort {
 	// Method for radix sort
 	public static void radixSort(Integer[] array) {
 		// Ensure array to sort is not empty
-		if (array.length == 0) {
+		if (array.length == 0 || array == null) {
 			return;
 		}
 		
