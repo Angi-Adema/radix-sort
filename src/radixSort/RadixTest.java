@@ -6,8 +6,8 @@ public class RadixTest {
 	
 	public static void main(String[] args) {
 		
-		// Assignment array
-		Integer[] numbers = {783, 99, 472, 182, 264, 543, 356, 295, 692, 491, 94};
+		// REFACTOR - Assignment array to include negative numbers
+		Integer[] numbers = {783, 99, -38, 472, 182, 264, -212, 543, 356, 295, -156, 692, 491, 94};
 		
 		// Print assignment array
 		System.out.println("Original array: " + Arrays.toString(numbers));

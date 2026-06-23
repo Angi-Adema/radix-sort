@@ -74,8 +74,10 @@ public class RadixSort {
 		}
 	}
 	
-	// Method for radix sort
-	public static void radixSort(Integer[] array) {
+	// REFACTOR - Add helper method to handle non-negative numbers
+	// Copy all existing logic in radixSort into this helper method
+	private static void radixSortPositiveNumbers(Integer[] array) {
+		
 		// Ensure array to sort is not empty
 		if (array == null || array.length == 0) {
 			return;
@@ -99,6 +101,73 @@ public class RadixSort {
 			// Increment the pass
 			pass++;
 		}
+		
+	}
+	
+	// REFACTOR - Method for radix sort handling positive and negative numbers
+	// Strategy: Get a count of positive and negative numbers in the array, create two temp arrays
+	// holding the positive and negative numbers, make negative numbers positive calling radixSortPositiveNumbers() to sort 
+	// positive and negative arrays, make negative numbers negative again when adding back to original array, 
+	// then add positive sorted numbers after the negatives
+	public static void radixSort(Integer[] array) {
+		
+		// Check to be sure the array to sort is not empty
+		if (array == null || array.length == 0) {
+			return;
+		}
+		
+		// Variables to count negative and positive numbers in the array
+		int negativeNumCount = 0;
+		int positiveNumCount = 0;
+		
+		// Loop through the array to get a count of number types
+		for (int number : array) {
+			if (number < 0) {
+				negativeNumCount++;
+			} else {
+				positiveNumCount++;
+			}
+		}
+		
+		// Create two Integer object arrays to hold positive nums and negative nums separately based on count
+		Integer[] negativeNums = new Integer[negativeNumCount];
+		Integer[] positiveNums = new Integer[positiveNumCount];
+		
+		// Create index variables for adding values to the temporary arrays
+		int negNum = 0;
+		int posNum = 0;
+		
+		// Loop through the array of numbers and store the positives and negatives separately making negative
+		// positive temporarily
+		for (int number : array) {
+			if (number < 0) {
+				negativeNums[negNum] = Math.abs(number);
+				negNum++;
+			} else {
+				positiveNums[posNum] = number;
+				posNum++;
+			}
+		}
+		
+		// Sort the values in both arrays
+		radixSortPositiveNumbers(negativeNums);
+		radixSortPositiveNumbers(positiveNums);
+		
+		// Variable to keep track of the current index of the original array
+		int index = 0;
+		
+		// Loop through and restore negative numbers in reverse order adding them to the original array
+		for (int i = negativeNums.length - 1; i >= 0; i--) {
+			array[index] = -negativeNums[i];
+			index++;
+		}
+		
+		// Loop through the positive numbers and add them after the negative numbers to the original array
+		for (int i = 0; i < positiveNums.length; i++) {
+			array[index] = positiveNums[i];
+			index++;
+		}
+
 	}
 	
 }
