@@ -137,7 +137,7 @@ public class RadixSort {
 		int negNum = 0;
 		int posNum = 0;
 		
-		// Loop through the array of numbers and store the positives and negatives separately making negative
+		// Loop through the array of numbers and store the positives and negatives separately making negatives
 		// positive temporarily
 		for (int number : array) {
 			if (number < 0) {
